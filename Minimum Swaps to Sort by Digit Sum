@@ -1,0 +1,50 @@
+class Solution {
+    public int minSwaps(int[] nums) {
+        int n = nums.length;
+        int arr[][] = new int[n][3];
+        for(int i = 0; i < n; i++) {
+            int num = nums[i];
+            int sumOfDigit = digitSum(num);
+            arr[i][0] = num;
+            arr[i][1] = sumOfDigit;
+            arr[i][2] = i;
+        }
+
+        Arrays.sort(arr, (a, b) -> {
+           if(a[1] == b[1]) return Integer.compare(a[0], b[0]);
+            return Integer.compare(a[1], b[1]);
+        });
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i < n; i++) {
+            map.put(nums[i], i);
+        }
+
+        int minSwaps = 0;
+        for(int i = 0; i < n; i++) {
+            int correctValue = arr[i][0];
+            if(nums[i] != correctValue) {
+                int correctIdx = map.get(correctValue);
+
+                map.put(nums[i], correctIdx);
+                map.put(correctValue, i);
+                int temp = nums[i];
+                nums[i] = nums[correctIdx];
+                nums[correctIdx] = temp;
+
+                minSwaps++;
+            }
+        }
+        return minSwaps;
+    }
+
+    public int digitSum(int num) {
+        int sum = 0;
+        while(num > 0) {
+            int ld = num % 10;
+            sum += ld;
+            num = num / 10;
+        }
+        return sum;
+    }
+}©leetcode
