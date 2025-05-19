@@ -1,0 +1,23 @@
+class Solution {
+    public List<Integer> selfDividingNumbers(int left, int right) {
+        List<Integer> list = new ArrayList<>();
+        for(int i = left; i <= right; i++) {
+            if(possible(i)) {
+                list.add(i);
+            }
+        }
+        return list;
+    }
+
+    public boolean possible(int n) {
+        int copy = n;
+        while(copy > 0) {
+            int ld = copy % 10;
+            if(ld == 0 || n % ld != 0) {
+                return false;
+            }
+            copy = copy / 10;
+        }
+        return true;
+    }
+}
