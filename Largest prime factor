@@ -1,0 +1,32 @@
+class Solution {
+    static int largestPrimeFactor(int n) {
+        int largest = Integer.MIN_VALUE;
+
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) {
+                if (isPrime(i)) {
+                    largest = Math.max(largest, i);
+                }
+                int pairedFactor = n / i;
+                if (pairedFactor != i && isPrime(pairedFactor)) {
+                    largest = Math.max(largest, pairedFactor); // ✅ FIXED this line
+                }
+            }
+        }
+
+        // Special case: if n is prime and none of its factors were found in loop
+        if (largest == Integer.MIN_VALUE && isPrime(n)) {
+            return n;
+        }
+
+        return largest;
+    }
+
+    static boolean isPrime(int n) {
+        if (n <= 1) return false;
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+}
