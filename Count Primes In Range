@@ -1,0 +1,23 @@
+class Solution {
+    int countPrimes(int L, int R) {
+        int isPrime[] = new int[R+1];
+        for(int i = 2; i <= R; i++) {
+            isPrime[i] = 1;
+        }
+
+        for(int i = 2; i <= Math.sqrt(R); i++) {
+            if(isPrime[i] == 1) {
+                for(int j = i*i; j <= R; j += i) {
+                    isPrime[j] = 0;
+                }
+            }
+        }
+        int count = 0;
+        for(int i = L; i <= R; i++) {
+            if(isPrime[i] == 1) {
+                count++;
+            }
+        }
+        return count;
+    }
+};
