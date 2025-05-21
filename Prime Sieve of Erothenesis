@@ -1,0 +1,23 @@
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+        int N = 30;
+        int isPrime[] = new int[N+1];
+        for(int i = 2; i <= N; i++) {
+            isPrime[i] = 1;
+        }
+        for(int i = 2; i <= Math.sqrt(N); i++) {
+            if(isPrime[i] == 1) {
+                for(int j = i*i; j <= N; j += i) {
+                    isPrime[j] = 0;
+                }
+            }
+        }
+        for(int i = 2; i <= N; i++) {
+            if(isPrime[i] == 1) {
+                System.out.println(i);
+            }
+        }
+    }
+}
