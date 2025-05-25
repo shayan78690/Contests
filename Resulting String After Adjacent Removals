@@ -1,0 +1,20 @@
+class Solution {
+    public String resultingString(String s) {
+        StringBuilder stack = new StringBuilder();
+        for (char c : s.toCharArray()) {
+            if (stack.length() > 0 && areConsecutive(stack.charAt(stack.length() - 1), c)) {
+                stack.deleteCharAt(stack.length() - 1); // remove top character from stack
+            } else {
+                stack.append(c);
+            }
+        }
+        return stack.toString();
+    }
+
+    private boolean areConsecutive(char c1, char c2) {
+        int diff = c1 - c2;
+        if (diff == 1 || diff == -1) return true;
+        if ((c1 == 'a' && c2 == 'z') || (c1 == 'z' && c2 == 'a')) return true;
+        return false;
+    }
+}
