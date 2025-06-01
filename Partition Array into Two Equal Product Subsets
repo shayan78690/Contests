@@ -1,0 +1,14 @@
+class Solution {
+    public boolean checkEqualPartitions(int[] nums, long target) {
+        return func(0, 1, 1, target, nums);
+    }
+    public boolean func(int idx, long prod1, long prod2, long target, int nums[]) {
+        if(prod1 > target || prod2 > target) return false;
+        if(idx == nums.length) return prod1 == target && prod2 == target;
+
+        boolean a = func(idx+1, prod1 * nums[idx], prod2, target, nums);
+        boolean b = func(idx+1, prod1, prod2 * nums[idx], target, nums);
+
+        return a | b;
+    }
+}©leetcode
